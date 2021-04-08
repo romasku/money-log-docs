@@ -18,6 +18,7 @@ for example, payment for year subscription will be divided by 12 for
 single month stats.
 entry.
 - category - list of categories this spending belongs to.
+- [optional] location - location of transaction (if appliable)
 - structured info - some additional JSON-like data with format
 specified by the template.
 
