@@ -122,4 +122,3 @@ The following names and functions are supported:
 - `week(day)`  returns **Week** that contains given **Day**
 - `month(day)`  returns **Month** that contains given **Day**
 - `year(day)`  returns **Week** that contains given **Day** or **Month**
-
