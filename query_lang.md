@@ -100,19 +100,27 @@ types that represent deltas of items of the first group
 
 Types of first group support subtraction that produces corresponding delta type, 
 the addition of corresponding delta type, comparison operators (`==`, `<=`, etc),
-checks using `in` and `not in` for being part of a larger period. 
+checks using `in` and `not in` for being part of a larger period (check details below). 
 Different periods cannot be mixed (subtraction off **Day** from **Week** is not allowed).
 
 Types of the second group support `+` and `-` and multiplication by **Integer**.
 They can be compared using all rich comparison operators.
 Different delta cannot be mixed (addition or comparison of **DayDelta** and **WeekDelta** is not allowed)
 
+
+Logic of `in` and `not in` operators:
+**Day** can be part of **Week**, **Month**, **Year**.
+**Week** can be part of **Month** and **Year**. 
+If week is only partially contained by month or year, the `in` will return **false**.
+**Month** can be part of **Year**.
+
+
 #### Location
 Represents a location on the map.
 Can be compared using `==` and `!=`.
 
-TODO: Do we need any other operators? 
-TODO: Do we need this type at all (can be replaced with **String**)?
+TODO: Add info about addition functions for measuring distance and extracting some info (like `city()`)
+when it will be clear what exactly we will store for each **Location**.
 
 ### Bultin names
 
@@ -122,3 +130,9 @@ The following names and functions are supported:
 - `week(day)`  returns **Week** that contains given **Day**
 - `month(day)`  returns **Month** that contains given **Day**
 - `year(day)`  returns **Week** that contains given **Day** or **Month**
+- `ceil(num)` returns **Integer** that is ceiling of given **Real**
+- `round(num)` returns **Integer** that is rounding of given **Real**
+- `regexp(pattern, str)` checks that str matches given pattern. 
+  Pattern is PCRE regex.
+  Returns **Bool**, both arguments should be **String**.
+
