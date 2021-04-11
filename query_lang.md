@@ -18,7 +18,7 @@ L_BRACE = '('
 R_BRACE = ')'
 DOT = '.'
 COMMA = ','
-TRUE = 'false'
+TRUE = 'true'
 FALSE = 'false'
 ```
 ## Grammar
@@ -66,8 +66,8 @@ literal:
     | REAL
     | STR
     | DATE
-    | 'True'
-    | 'False'
+    | 'true'
+    | 'false'
 func_call: NAME '(' (expr (',' expr)*)? ')'
 ```
 
