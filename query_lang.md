@@ -13,7 +13,7 @@ Simple tokens defined by literal value(s):
 ```
 FILTER = 'filter'
 GROUP = 'group'
-OP = 'not' | 'or' | 'and' | '==' |  '!=' |  '<' |  '<=' |  '>' |  '>=' | 'in' | 'not in' | '+' | '-' | '*' | '/'
+OP = 'not' | 'or' | 'xor' | 'and' | '==' |  '!=' |  '<' |  '<=' |  '>' |  '>=' | 'in' | 'not in' | '+' | '-' | '*' | '/'
 L_BRACE = '('
 R_BRACE = ')'
 DOT = '.'
@@ -28,7 +28,10 @@ filter: 'filter' expr
 grouper: 'group' expr
 expr: disjunction
 disjunction:
-    | conjunction ('or' conjunction )+ 
+    | xor_group ('or' xor_group )+ 
+    | xor_group
+xor_group:
+    | conjunction ('xor' conjunction)+
     | conjunction
 conjunction:
     | inversion ('and' inversion )+ 
@@ -89,8 +92,6 @@ Supports arithmetic operations and comparisons.
 Represents a sequence of characters. 
 Can be concatenation using `+`, substring check by `in` operator. 
 
-TODO: Probably we need some string manipulation functions like `replace()`, `format()` , `str()` 
-
 ### Date manipulation types
 
 There are two groups of "date" types: one that represents some particular
@@ -108,10 +109,10 @@ They can be compared using all rich comparison operators.
 Different delta cannot be mixed (addition or comparison of **DayDelta** and **WeekDelta** is not allowed)
 
 
-Logic of `in` and `not in` operators:
+The logic of `in` and `not in` operators:
 **Day** can be part of **Week**, **Month**, **Year**.
 **Week** can be part of **Month** and **Year**. 
-If week is only partially contained by month or year, the `in` will return **false**.
+If a week is only partially contained by month or year, the `in` will return **false**.
 **Month** can be part of **Year**.
 
 
@@ -132,7 +133,7 @@ The following names and functions are supported:
 - `year(day)`  returns **Week** that contains given **Day** or **Month**
 - `ceil(num)` returns **Integer** that is ceiling of given **Real**
 - `round(num)` returns **Integer** that is rounding of given **Real**
-- `regexp(pattern, str)` checks that str matches given pattern. 
-  Pattern is PCRE regex.
+- `regexp(pattern, str)` checks that `str` matches given `pattern`. 
+  The `pattern` is PCRE regex.
   Returns **Bool**, both arguments should be **String**.
 
